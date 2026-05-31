@@ -1,14 +1,9 @@
 import time
+from models import Item
 
-class Item:
-    def __init__(self, weight, profit):
-        self.weight = weight
-        self.profit = profit
-        self.ratio = profit / weight
 
-def branch_and_bound(weights, profits, capacity):
+def branch_and_bound(items: list[Item], capacity: float):
     # create items and sort by profit/weight ratio (Greedy approach)
-    items = [Item(weights[i], profits[i]) for i in range(len(weights))]
     items.sort(key=lambda x: x.ratio, reverse=True)
     
     n = len(items)

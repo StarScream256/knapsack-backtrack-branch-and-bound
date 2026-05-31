@@ -1,7 +1,8 @@
 import time
+from models import Item
 
-def standard_backtracking(weights, profits, capacity):
-    n = len(weights)
+def standard_backtracking(items: list[Item], capacity: float):
+    n = len(items)
     max_profit = 0
     nodes_visited = 0
 
@@ -21,7 +22,7 @@ def standard_backtracking(weights, profits, capacity):
             return
 
         # branch 1: INCLUDE the current item
-        dfs(level + 1, current_weight + weights[level], current_profit + profits[level])
+        dfs(level + 1, current_weight + items[level].weight, current_profit + items[level].profit)
         
         # branch 2: EXCLUDE the current item
         dfs(level + 1, current_weight, current_profit)
