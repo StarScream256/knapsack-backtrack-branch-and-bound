@@ -11,11 +11,10 @@ def generate_knapsack(num_items: int) -> Tuple[list[Item], int]:
         processor = random.randint(1, 10)
         memory = random.randint(1, 10)
         storage = random.randint(1, 10)
-        profit = price * (processor + memory + storage) / 3
+        profit = (processor + memory + storage) / 3
         items.append(Item(price, processor, memory, storage, profit))
         
     # capacity is 40% of total profit to ensure it's a challenging problem
-    # total_profit = sum(item.profit for item in items)
-    suggested_capacity: int = int(sum(item.profit for item in items) * 0.4)
+    suggested_capacity: int = int(sum(item.price for item in items) * 0.4)
     
     return items, suggested_capacity
