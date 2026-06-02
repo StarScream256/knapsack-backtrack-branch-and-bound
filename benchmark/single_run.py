@@ -55,7 +55,7 @@ def render_single_run_page(configured: bool = False) -> None:
     possible_combinations = 2 ** int(dataset_count)
 
     if st.button("Generate Dataset"):
-        items = generate_knapsack(int(dataset_count))
+        items, _ = generate_knapsack(int(dataset_count))
         # Do not auto-fill the budget (capacity); user must input it manually
         st.session_state["single_dataset"] = {"items": items}
         clear_session_keys(["single_bt_results", "single_bb_results"])
