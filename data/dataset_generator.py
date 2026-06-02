@@ -1,8 +1,7 @@
 import random
-from typing import Tuple
 from model.models import Item
 
-def generate_knapsack(num_items: int) -> Tuple[list[Item], int]:
+def generate_knapsack(num_items: int) -> list[Item]:
     items: list[Item] = []
     
     # generate random prices (Rp 5 to 50 (juta)) and random specs (1 to 10) for processor, memory, storage
@@ -15,6 +14,7 @@ def generate_knapsack(num_items: int) -> Tuple[list[Item], int]:
         items.append(Item(price, processor, memory, storage, profit))
         
     # capacity is 40% of total profit to ensure it's a challenging problem
-    suggested_capacity: int = int(sum(item.price for item in items) * 0.4)
+    # suggested_capacity: int = int(sum(item.price for item in items) * 0.4)
     
-    return items, suggested_capacity
+    # return items, suggested_capacity
+    return items

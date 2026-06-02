@@ -29,9 +29,7 @@ def _update_single_capacity() -> None:
     if "single_dataset" not in st.session_state:
         return
 
-    new_capacity = int(cast(int, st.session_state["single_cap_input"]))
-    dataset = cast(dict[str, Any], st.session_state["single_dataset"])
-    dataset["capacity"] = new_capacity
+    # User will input capacity manually; just clear previous results when capacity changes
     clear_session_keys(["single_bt_results", "single_bb_results"])
 
 
@@ -57,9 +55,9 @@ def render_single_run_page(configured: bool = False) -> None:
     possible_combinations = 2 ** int(dataset_count)
 
     if st.button("Generate Dataset"):
-        items, suggested_capacity = generate_knapsack(int(dataset_count))
-        st.session_state["single_cap_input"] = suggested_capacity
-        st.session_state["single_dataset"] = {"items": items, "capacity": suggested_capacity}
+        items = generate_knapsack(int(dataset_count))
+        # Do not auto-fill the budget (capacity); user must input it manually
+        st.session_state["single_dataset"] = {"items": items}
         clear_session_keys(["single_bt_results", "single_bb_results"])
 
     st.number_input(
@@ -75,7 +73,8 @@ def render_single_run_page(configured: bool = False) -> None:
         return
 
     items = cast(list[Item], st.session_state["single_dataset"]["items"])
-    capacity = float(st.session_state["single_dataset"]["capacity"])
+    # Read capacity from the user's manual input widget
+    capacity = float(st.session_state["single_cap_input"])
 
     st.dataframe(items_to_dataframe(items), use_container_width=True)  # type: ignore
     st.info(f"Total kombinasi yang mungkin 2^{int(dataset_count)} = {possible_combinations:,}")
